@@ -19,7 +19,7 @@ public class WorkerImpl extends java.rmi.server.UnicastRemoteObject implements W
 	}
 
 	public static void main(String[] args) {
-		if (args.length < 1) {
+		if (args.length < 2) {
 			System.out.println("Podaj uchwyt RMI");
 			return;
 		}
@@ -32,8 +32,8 @@ public class WorkerImpl extends java.rmi.server.UnicastRemoteObject implements W
 		 int o=Integer.parseInt(args[1]);
 		
 		try {
-
-			Registry reg = LocateRegistry.createRegistry(o);
+			Registry reg;
+			reg = LocateRegistry.createRegistry(o);
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
 		}
