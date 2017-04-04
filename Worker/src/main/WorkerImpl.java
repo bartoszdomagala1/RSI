@@ -3,21 +3,38 @@ package main;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-
+/**
+ * @author Bartosz Domagala, 220945
+ */
 public class WorkerImpl extends java.rmi.server.UnicastRemoteObject implements Worker {
 
 
     private static final long serialVersionUID=101L;
 
+	/**
+	 * Konstruktor
+	 * @throws java.rmi.RemoteException - wyjatek odziedziczony po nadklasie
+	 */
 	public WorkerImpl() throws java.rmi.RemoteException {
 		super();
 	}
 
+	/**
+	 * Metoda rozwiazujaca otrzymane zadanie i zwrcajaca wynik
+	 * @param task - zadanie do wykonania
+	 * @param params - lista parametrow zadania
+	 * @return - Wynik wykonania otrymanego zaadania
+	 * @throws java.rmi.RemoteException - wyjatek obiekty zdalnego
+	 */
 	public Object compute(Task task, Object params) throws java.rmi.RemoteException {
 		//System
 		return task.compute(params);
 	}
 
+	/**
+	 * Glowna metoda uruchamiajaca serwer
+	 * @param args - adres workera oraz numer portu RMIREGISTRY
+	 */
 	public static void main(String[] args) {
 		if (args.length < 2) {
 			System.out.println("Podaj uchwyt RMI");

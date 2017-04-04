@@ -1,7 +1,14 @@
 package main;
+/**
+ * @author Bartosz Domagala, 220945
+ */
 
 public class PrimeNumberTask implements Task{
-
+    /**
+     * Metoda obliczajaca kolejne liczby pierwsze z odanego przedzialu
+     * @param args - parametry metody(tutaj lista skladajaca sie z poczatku i konca przedzialu obliczen)
+     * @return - Zraca uporzadkowana liste liczb pierwszych z przedzialu
+     */
 	@Override
 	 public Object compute(Object args) {
         java.util.Vector arg = (java.util.Vector) args;

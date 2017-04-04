@@ -3,10 +3,19 @@ package main;
 import java.rmi.RemoteException;
 import java.util.*;
 
+/**
+ * @author Bartosz Domagala, 220945
+ */
 public class FarmerImpl extends java.rmi.server.UnicastRemoteObject implements Farmer {
 
 	private Worker[] workers;
 
+	/**
+	 * Konstruktor tworzacy obikt farmera
+	 * @param args - lista parametrow zawierajacychkolejne adresy workerow
+	 * @throws java.rmi.RemoteException - Wyjatek odziedziczony po nadklasie
+	 * @throws Exception - Inne wyjatki
+	 */
 	public FarmerImpl(String[] args) throws java.rmi.RemoteException, Exception {
 		super();
 		int i;
@@ -31,6 +40,13 @@ public class FarmerImpl extends java.rmi.server.UnicastRemoteObject implements F
 		}
 	}
 //tworzy obiekty -zadanie
+
+	/**
+	 * Metoda dzielaca zadania pomiedzy workerow
+	 * @param params - vektor parametrow ktore maja byc przekazane do zdalnego wykonania
+	 * @param howManySubtasks - liczba podzadan na ktora ma zostac podzielone zadanie
+	 * @return - lista vektorow z parametrami dla kolejnych workerow
+	 */
 	public java.util.Vector splitParams(Object params, int howManySubtasks) {
 
 		// podzial na zadania
@@ -55,6 +71,11 @@ public class FarmerImpl extends java.rmi.server.UnicastRemoteObject implements F
 		return subtasks;
 	}
 
+	/**
+	 * Metoda skladajaca wyniki uzyskane z kolejnych workerow
+	 * @param partialResults - lista wynikow z kolejnych workerow
+	 * @return - Polaczone wyniki ze wszystkich podzadan
+	 */
 	public Object combineResults(java.util.Vector partialResults) {
 		int i;
 
@@ -67,6 +88,12 @@ public class FarmerImpl extends java.rmi.server.UnicastRemoteObject implements F
 		return result;
 	}
 
+	/**
+	 * Metoda wysylajaca do workerow zadanie obliczenia liczb pierwszych z przedzialu.
+	 * Rozdziela zadanie pomiedzy nich, a nastepnie orgsnizuje skladanie wynikow
+	 * @return - Lista liczb pierwszych z przedzialu
+	 * @throws java.rmi.RemoteException - Wyjatek wykonania na workerze
+	 */
 	@Override
 	public Object compute() throws java.rmi.RemoteException {
 
@@ -93,6 +120,10 @@ public class FarmerImpl extends java.rmi.server.UnicastRemoteObject implements F
 		return combineResults(results);
 	}
 
+	/**
+	 * Glowna metoda farmera
+	 * @param args - lista adresow w formacie: farmer, worker(, worker, worker...)
+	 */
 	public static void main(String[] args) {
 		if (args.length < 2) {
 			System.out.println("Podaj uchwyt farmera i co najmniej jeden uchwyt workera.");
